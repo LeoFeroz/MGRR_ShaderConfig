@@ -1,7 +1,0 @@
-﻿  binnary_reader.c
-E:\Repo\MGRR_ShaderConfig\src\engine\binnary_reader.c(104,52): warning C4090: 'function': different 'const' qualifiers
-E:\Repo\MGRR_ShaderConfig\src\engine\binnary_reader.c(112,48): warning C4047: 'function': 'const char **' differs in levels of indirection from 'const char **[4]'
-E:\Repo\MGRR_ShaderConfig\src\engine\binnary_reader.c(112,48): warning C4024: 'GroupShaderSign': different types for formal and actual parameter 4
-E:\Repo\MGRR_ShaderConfig\src\engine\binnary_reader.c(117,50): warning C4047: 'function': 'const char **' differs in levels of indirection from 'const char **[4]'
-E:\Repo\MGRR_ShaderConfig\src\engine\binnary_reader.c(117,50): warning C4024: 'GroupShaderSign': different types for formal and actual parameter 4
-  MGRR_ShaderConfig.vcxproj -> E:\Repo\MGRR_ShaderConfig\x64\Debug\MGRR_ShaderConfig.exe
