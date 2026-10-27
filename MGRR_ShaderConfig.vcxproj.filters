@@ -27,7 +27,22 @@
     <ClCompile Include="src\engine\dat_operations.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\cpp\bxm.cpp">
+    <ClCompile Include="src\tinyxml2\tinyxml2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\split_operations.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\merge_operations.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\bxm_operations.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\bxm_c.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\bxm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,16 +50,19 @@
     <ClInclude Include="src\headers\datatype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\headers\math.h">
+    <ClInclude Include="src\headers\global.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\headers\definitions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\headers\tinyxml2\tinyxml2.h">
+    <ClInclude Include="src\tinyxml2\tinyxml2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\headers\bxm.h">
+    <ClInclude Include="src\cpp\bxm_c.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cpp\bxm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

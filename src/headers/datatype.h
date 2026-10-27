@@ -1,6 +1,6 @@
 #pragma once
 
-#include "math.h"
+#include "global.h"
 
 #define MAX_BITS 8
 #define BOOL_STR(x) ((x) ? "True" : "False")

@@ -58,21 +58,20 @@ const char** UnkGroupsFlagsIdentifiers[4] = {
 };
 
 
-void ReadShaderSign(FILE* input) {
-    int i = 0;
+void ReadShaderSign(FILE* input, FILE* out) {
+    int count = GetEntryCount(input);
 
-    printf("<ShaderSign>\n");
-    for (i = 0; i < GetEntryCount(input); i++) {
-        printf("  <Work> //%d\n", i);
-        WorkHeader(input);
-        printf("  </Work>\n");
-        fseek(input, 0x1C, SEEK_CUR);
+    fprintf(out, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+    fprintf(out, "<ShaderSign count=\"%d\">\n", count);
+    for (int i = 0; i < count; i++) {
+        fprintf(out, "  <Work index=\"%d\">\n", i);
+        WorkHeader(input, out);
+        fseek(input, 0x1C, SEEK_CUR);  /* padding nao usado pelo jogo; o repack preenche com zeros */
+        fprintf(out, "  </Work>\n");
     }
-    printf("</ShaderSign>\n");
+    fprintf(out, "</ShaderSign>\n");
 
-    printf("\n");
-    printf("Total Works = %d", i);
-    printf("\n");
+    printf("Total Works = %d\n", count);
 }
 
 int GetEntryCount(FILE* input) {
@@ -86,38 +85,38 @@ int GetEntryCount(FILE* input) {
     return (int)(size / 0x28);
 }
 
-void WorkHeader(FILE* input) {
-    printf("    <Data_01>\n");
+void WorkHeader(FILE* input, FILE* out) {
+    fprintf(out, "    <Data_01>\n");
     for (u8 i = 0; i < 4; i++) {
-        GroupShaderSign(input, i, FLag_Names_1, GroupsFlagsIdentifiers);
+        GroupShaderSign(input, out, i, FLag_Names_1, GroupsFlagsIdentifiers);
     }
-    printf("    </Data_01>\n");
-    printf("    <Data_02>\n");
+    fprintf(out, "    </Data_01>\n");
+    fprintf(out, "    <Data_02>\n");
     for (u8 i = 0; i < 4; i++) {
-        GroupShaderSign(input, i, FLag_Names_2, UnkGroupsFlagsIdentifiers);
+        GroupShaderSign(input, out, i, FLag_Names_2, UnkGroupsFlagsIdentifiers);
     }
-    printf("    </Data_02>\n");
-    printf("    <Data_03>\n");
+    fprintf(out, "    </Data_02>\n");
+    fprintf(out, "    <Data_03>\n");
     for (u8 i = 0; i < 4; i++) {
-        GroupShaderSign(input, i, FLag_Names_Unk, UnkGroupsFlagsIdentifiers);
+        GroupShaderSign(input, out, i, FLag_Names_Unk, UnkGroupsFlagsIdentifiers);
     }
-    printf("    </Data_03>\n");
-
+    fprintf(out, "    </Data_03>\n");
 }
 
-void GroupShaderSign(FILE* input, u8 index, const char** FlagNames, const char** IdentifiersNames) {
+void GroupShaderSign(FILE* input, FILE* out, u8 index, const char** FlagNames, const char*** IdentifiersNames) {
     GenericBitFlag bits = { 0 };
-    printf("      <Configuration>\n");
-    printf("        <%s>\n", FlagNames[index]);
-    BitFlagOperations(input, &bits, IdentifiersNames[index]);
-    printf("        </%s>\n", FlagNames[index]);
-    printf("      </Configuration>\n");
+    fprintf(out, "      <%s>", FlagNames[index]);
+    BitFlagOperations(input, out, &bits, IdentifiersNames[index]);
+    fprintf(out, "</%s>\n", FlagNames[index]);
 }
 
-void BitFlagOperations(FILE* input, GenericBitFlag* bitflag, const char** names) {
-
-    fread(&bitflag->raw, sizeof(bitflag->raw), 1, input);
+/* Escreve as 8 flags na mesma linha: flagA=False, flagB=True, ... */
+void BitFlagOperations(FILE* input, FILE* out, GenericBitFlag* bitflag, const char** names) {
+    if (fread(&bitflag->raw, sizeof(bitflag->raw), 1, input) != 1) {
+        printf("Warning: could not read flags\n");
+        bitflag->raw = 0;
+    }
     for (int i = 0; i < MAX_BITS; i++) {
-        printf("          <%s = %s>\n", names[i], BOOL_STR((bitflag->raw >> i) & 1u));
+        fprintf(out, "%s%s=%s", i ? ", " : "", names[i], BOOL_STR((bitflag->raw >> i) & 1u));
     }
 }

@@ -13,3 +13,4 @@ std::vector<uint8_t> XmlToBxm(const tinyxml2::XMLElement* root);
 void ConvertBxmFileToXml(const std::filesystem::path& bxmPath, const std::filesystem::path& xmlPath);
 void ConvertXmlToBxmFile(const std::filesystem::path& xmlPath, const std::filesystem::path& bxmPath);
 
+}  // namespace bxm

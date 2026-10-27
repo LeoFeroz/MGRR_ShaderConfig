@@ -73,20 +73,20 @@ class Reader {
   explicit Reader(const std::vector<uint8_t>& d) : d_(d) {}
   size_t pos = 0;
 
-  uint8_t u8() {
+  uint8_t ReadU8() {
     if (pos >= d_.size()) throw std::runtime_error("BXM: read out of range");
     return d_[pos++];
   }
-  uint16_t u16() { uint16_t hi = u8(); return (uint16_t)((hi << 8) | u8()); }
-  int16_t i16() { return (int16_t)u16(); }
-  int32_t i32() {
+  uint16_t ReadU16() { uint16_t hi = ReadU8(); return (uint16_t)((hi << 8) | ReadU8()); }
+  int16_t ReadI16() { return (int16_t)ReadU16(); }
+  int32_t ReadI32() {
     uint32_t v = 0;
-    for (int i = 0; i < 4; i++) v = (v << 8) | u8();
+    for (int i = 0; i < 4; i++) v = (v << 8) | ReadU8();
     return (int32_t)v;
   }
   std::string zeroTerminated() {
     std::string s;
-    for (uint8_t b; (b = u8()) != 0;) s.push_back((char)b);
+    for (uint8_t b; (b = ReadU8()) != 0;) s.push_back((char)b);
     return s;
   }
 
@@ -235,25 +235,25 @@ XMLElement* ParseBxm(const std::vector<uint8_t>& bytes, XMLDocument& doc) {
   Reader r(bytes);
 
   Header header{};
-  for (char& c : header.type) c = (char)r.u8();
-  header.flags = r.i32();
-  header.nodeCount = r.u16();
-  header.dataCount = r.u16();
-  header.dataSize = r.i32();
+  for (char& c : header.type) c = (char)r.ReadU8();
+  header.flags = r.ReadI32();
+  header.nodeCount = r.ReadU16();
+  header.dataCount = r.ReadU16();
+  header.dataSize = r.ReadI32();
   if (header.nodeCount == 0) throw std::runtime_error("BXM: no nodes");
 
   std::vector<NodeInfo> nodeInfos(header.nodeCount);
   for (auto& ni : nodeInfos) {
-    ni.childCount = r.i16();
-    ni.firstChildIndex = r.u16();
-    ni.attributeCount = r.i16();
-    ni.dataIndex = r.i16();
+    ni.childCount = r.ReadI16();
+    ni.firstChildIndex = r.ReadU16();
+    ni.attributeCount = r.ReadI16();
+    ni.dataIndex = r.ReadI16();
   }
 
   std::vector<DataOffsets> dataOffsets(header.dataCount);
   for (auto& d : dataOffsets) {
-    d.nameOffset = r.u16();
-    d.valueOffset = r.u16();
+    d.nameOffset = r.ReadU16();
+    d.valueOffset = r.ReadU16();
   }
 
   const size_t stringsOffsets = 0x10 + 8 * (size_t)header.nodeCount + 4 * (size_t)header.dataCount;

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -19,18 +19,24 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\cpp\bxm.cpp" />
+    <ClCompile Include="src\cpp\bxm_c.cpp" />
     <ClCompile Include="src\engine\binnary_reader.c" />
-    <ClCompile Include="src\engine\cpp\bxm.cpp" />
+    <ClCompile Include="src\engine\bxm_operations.c" />
     <ClCompile Include="src\engine\dat_operations.c" />
+    <ClCompile Include="src\engine\merge_operations.c" />
     <ClCompile Include="src\engine\main.c" />
     <ClCompile Include="src\engine\sign_operations.c" />
+    <ClCompile Include="src\engine\split_operations.c" />
+    <ClCompile Include="src\tinyxml2\tinyxml2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\headers\bxm.h" />
+    <ClInclude Include="src\cpp\bxm.h" />
+    <ClInclude Include="src\cpp\bxm_c.h" />
     <ClInclude Include="src\headers\datatype.h" />
     <ClInclude Include="src\headers\definitions.h" />
-    <ClInclude Include="src\headers\math.h" />
-    <ClInclude Include="src\headers\tinyxml2\tinyxml2.h" />
+    <ClInclude Include="src\headers\global.h" />
+    <ClInclude Include="src\tinyxml2\tinyxml2.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -90,7 +96,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src\headers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\cpp;$(ProjectDir)src\tinyxml2;$(ProjectDir)src\headers</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -106,7 +112,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src\headers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\cpp;$(ProjectDir)src\tinyxml2;$(ProjectDir)src\headers</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -120,7 +126,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src\headers\tinyxml2;$(ProjectDir)src\headers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\cpp;$(ProjectDir)src\tinyxml2;$(ProjectDir)src\headers</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -136,7 +142,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src\headers\tinyxml2;$(ProjectDir)src\headers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\cpp;$(ProjectDir)src\tinyxml2;$(ProjectDir)src\headers</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
