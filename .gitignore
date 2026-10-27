@@ -4,3 +4,7 @@ bin/
 input/
 x64/
 MGRR_Sha/
+output/
+ShaderConfig.xml
+/x64/Debug/MGRR_ShaderConfig.exe
+/x64/Debug/MGRR_ShaderConfig.pdb
